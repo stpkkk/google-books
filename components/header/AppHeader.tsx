@@ -10,8 +10,16 @@ const AppHeader: React.FC = () => {
         <h1 className="mb-10 text-5xl font-bold">Search for books</h1>
         <SearchInput />
         <div className="flex_center gap-6 sm:flex-wrap w-full">
-          <Dropdown items={categories} label={"Categories"} />
-          <Dropdown items={sortValues} label={"Sorting by"} />
+          <Dropdown
+            items={categories}
+            label={"Categories"}
+            dropdownId="categories"
+          />
+          <Dropdown
+            items={sortValues}
+            label={"Sorting by"}
+            dropdownId="sorting"
+          />
         </div>
       </div>
     </header>

@@ -1,22 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
+import { setSelectedOption, toggleDropdown } from "@/redux/features/booksSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 type DropdownProps = {
   items: string[];
   label: string;
+  dropdownId: string;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ items, label }) => {
-  const [selectedOption, setSelectedOption] = useState(items[0]);
-  const [isOpen, setIsOpen] = useState(false);
+const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
+  const dispatch = useAppDispatch();
+  const selectedOption = useAppSelector(
+    state => state.booksSlice.selectedOptions[dropdownId]
+  );
+  const isDropdownOpen = useAppSelector(
+    state => state.booksSlice.isOpen[dropdownId]
+  );
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const toggleDropdownHandler = () => {
+    dispatch(toggleDropdown(dropdownId));
   };
 
-  const selectOption = (item: string) => {
-    setSelectedOption(item);
-    setIsOpen(false);
+  const selectOptionHandler = (item: string) => {
+    dispatch(setSelectedOption({ dropdownId, option: item }));
+    dispatch(toggleDropdown(dropdownId));
   };
 
   return (
@@ -26,14 +34,14 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label }) => {
       </label>
       <div className="relative text-black bg-white max-w-xs w-full">
         <button
-          onClick={toggleDropdown}
+          onClick={toggleDropdownHandler}
           className="outline-none h-10 w-full border-gray-300 rounded-md pl-3 pr-10 py-2 text-left"
         >
-          {selectedOption}
+          {selectedOption || items[0]}
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
             <svg
               className={`w-5 h-5 transition-transform transform ${
-                isOpen ? "rotate-180" : ""
+                isDropdownOpen ? "rotate-180" : ""
               }`}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -49,13 +57,13 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label }) => {
             </svg>
           </span>
         </button>
-        {isOpen && (
+        {isDropdownOpen && (
           <ul className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md ">
             {items.map(item => (
               <li
                 key={item}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md"
-                onClick={() => selectOption(item)}
+                onClick={() => selectOptionHandler(item)}
               >
                 {item}
               </li>
