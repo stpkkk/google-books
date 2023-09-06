@@ -1,14 +1,29 @@
 'use client';
-import React, { ChangeEvent } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setSearchTerm } from '@/redux/features/booksSlice';
 import SearchIcon from './SearchIcon';
+import { useRouter } from 'next/navigation';
 
 const SearchInput: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [searchTerm, setSearchTermLocal] = useState<string>('');
+  const router = useRouter();
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchTerm(e.target.value));
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTermLocal(e.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    dispatch(setSearchTerm(searchTerm));
+    router.push('/');
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      dispatch(setSearchTerm(searchTerm));
+      router.push('/');
+    }
   };
 
   return (
@@ -17,13 +32,21 @@ const SearchInput: React.FC = () => {
         type="text"
         className="bg-white h-10 px-5 pr-10 focus:outline-none w-full"
         placeholder="Search..."
+        value={searchTerm}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
-      <div className="absolute right-0 top-0 mt-2.5 mr-3">
+      <button
+        className="bg-gray-300 p-2 px-4 hover:bg-gray-200"
+        onClick={handleSearchButtonClick}
+      >
         <SearchIcon />
-      </div>
+      </button>
     </div>
   );
 };
 
 export default SearchInput;
+
+
+

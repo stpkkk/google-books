@@ -27,7 +27,7 @@ export const googleBooksApi = createApi({
   endpoints: (builder) => ({
     getAllBooks: builder.query<IBooksResponse, GetAllBooksParams>({
       query: ({ searchTerm, startIndex = 0, limit, orderBy, subject }) =>
-        `?q=${searchTerm}+${subject}&orderBy=${orderBy}&maxResults=${limit}&startIndex=${startIndex}&key=${apiKey}`,
+        `ad?q=${searchTerm}+${subject}&orderBy=${orderBy}&maxResults=${limit}&startIndex=${startIndex}&key=${apiKey}`,
     }),
 
     getBook: builder.query<IBook, GetBookParams>({
