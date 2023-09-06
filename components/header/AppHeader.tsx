@@ -1,7 +1,7 @@
-import React from "react";
-import SearchInput from "./SearchInput";
-import Dropdown from "./Dropdown";
-import { Categories, SortingBy } from "@/constants";
+import React from 'react';
+import SearchInput from './SearchInput';
+import Dropdown from './Dropdown';
+import { Categories, SortingBy } from '@/constants';
 
 const AppHeader: React.FC = () => {
   const categoriesArray = Object.values(Categories);
@@ -15,12 +15,12 @@ const AppHeader: React.FC = () => {
         <div className="flex_center gap-6 sm:flex-wrap w-full">
           <Dropdown
             items={categoriesArray}
-            label={"Categories"}
+            label={'Categories'}
             dropdownId="categories"
           />
           <Dropdown
             items={sortingByArray}
-            label={"Sorting by"}
+            label={'Sorting by'}
             dropdownId="sorting"
           />
         </div>

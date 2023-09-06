@@ -1,2 +1,2 @@
-export * from "./categories";
-export * from "./sorting-by";
+export * from './categories';
+export * from './sorting-by';

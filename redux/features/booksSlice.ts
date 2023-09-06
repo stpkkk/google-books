@@ -1,11 +1,12 @@
-import { Categories, SortingBy } from "@/constants";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Categories, SortingBy } from '@/constants';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface booksState {
   selectedOptions: Record<string, string>;
   isOpen: Record<string, boolean>;
   searchTerm: string;
   booksToRender: number;
+  volumeId: string;
 }
 
 const initialState: booksState = {
@@ -14,17 +15,18 @@ const initialState: booksState = {
     sorting: SortingBy.RELEVANCE,
   },
   isOpen: {},
-  searchTerm: "",
+  searchTerm: '',
   booksToRender: 30,
+  volumeId: '',
 };
 
 const booksSlice = createSlice({
-  name: "books",
+  name: 'books',
   initialState,
   reducers: {
     setSelectedOption: (
       state,
-      action: PayloadAction<{ dropdownId: string; option: string }>
+      action: PayloadAction<{ dropdownId: string; option: string }>,
     ) => {
       const { dropdownId, option } = action.payload;
       state.selectedOptions[dropdownId] = option;
@@ -42,6 +44,10 @@ const booksSlice = createSlice({
     setBooksToRender: (state, action: PayloadAction<number>) => {
       state.booksToRender = action.payload;
     },
+
+    setVolumeId: (state, action: PayloadAction<string>) => {
+      state.volumeId = action.payload;
+    },
   },
 });
 
@@ -50,6 +56,7 @@ export const {
   toggleDropdown,
   setSearchTerm,
   setBooksToRender,
+  setVolumeId,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

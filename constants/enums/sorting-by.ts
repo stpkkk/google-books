@@ -1,4 +1,4 @@
 export enum SortingBy {
-  RELEVANCE = "relevance",
-  NEWEST = "newest",
+  RELEVANCE = 'relevance',
+  NEWEST = 'newest',
 }

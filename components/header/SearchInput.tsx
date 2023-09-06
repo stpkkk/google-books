@@ -1,8 +1,8 @@
-"use client";
-import React, { ChangeEvent } from "react";
-import { useAppDispatch } from "@/redux/hooks";
-import { setSearchTerm } from "@/redux/features/booksSlice";
-import SearchIcon from "./SearchIcon";
+'use client';
+import React, { ChangeEvent } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
+import { setSearchTerm } from '@/redux/features/booksSlice';
+import SearchIcon from './SearchIcon';
 
 const SearchInput: React.FC = () => {
   const dispatch = useAppDispatch();

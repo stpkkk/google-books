@@ -1,15 +1,15 @@
-"use client";
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useGetBooksQuery } from "@/redux/services/googleBooksApi";
-import { setBooksToRender } from "@/redux/features/booksSlice";
-import BookItem from "./BookItem";
-import LoadMoreButton from "./LoadMoreButton";
+'use client';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
+import { setBooksToRender } from '@/redux/features/booksSlice';
+import BookItem from './BookItem';
+import LoadMoreButton from './LoadMoreButton';
 
 function BookList() {
   const dispatch = useAppDispatch();
   const { searchTerm, booksToRender, selectedOptions } = useAppSelector(
-    state => state.booksSlice
+    (state) => state.booksSlice,
   );
 
   const params = {
@@ -34,7 +34,7 @@ function BookList() {
   // console.log(params)
 
   const { data, error, isLoading, isFetching, refetch } =
-    useGetBooksQuery(params);
+    useGetAllBooksQuery(params);
 
   const isBookNotFounded = data && data.totalItems <= 0;
 
@@ -50,9 +50,9 @@ function BookList() {
   }
 
   if (error) {
-    if ("status" in error) {
+    if ('status' in error) {
       const errMsg =
-        "error" in error ? error.error : JSON.stringify(error.data);
+        'error' in error ? error.error : JSON.stringify(error.data);
 
       return (
         <div className="text-center my-16 text-lg font-bold">
@@ -76,7 +76,7 @@ function BookList() {
       </div>
       {data && data.items && (
         <ul className="grid grid-cols-4 sm:grid-cols-1 gap-4">
-          {data.items.map(book => (
+          {data.items.map((book) => (
             <li key={crypto.randomUUID()}>
               <BookItem book={book} />
             </li>
@@ -89,5 +89,3 @@ function BookList() {
 }
 
 export default BookList;
-
-

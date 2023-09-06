@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { setSelectedOption, toggleDropdown } from "@/redux/features/booksSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+'use client';
+import React from 'react';
+import { setSelectedOption, toggleDropdown } from '@/redux/features/booksSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 type DropdownProps = {
   items: string[];
@@ -12,10 +12,10 @@ type DropdownProps = {
 const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
   const dispatch = useAppDispatch();
   const selectedOption = useAppSelector(
-    state => state.booksSlice.selectedOptions[dropdownId]
+    (state) => state.booksSlice.selectedOptions[dropdownId],
   );
   const isDropdownOpen = useAppSelector(
-    state => state.booksSlice.isOpen[dropdownId]
+    (state) => state.booksSlice.isOpen[dropdownId],
   );
 
   const toggleDropdownHandler = () => {
@@ -41,7 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
             <svg
               className={`w-5 h-5 transition-transform transform ${
-                isDropdownOpen ? "rotate-180" : ""
+                isDropdownOpen ? 'rotate-180' : ''
               }`}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -59,7 +59,7 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
         </button>
         {isDropdownOpen && (
           <ul className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md ">
-            {items.map(item => (
+            {items.map((item) => (
               <li
                 key={item}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md"
