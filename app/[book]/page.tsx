@@ -5,6 +5,7 @@ import { useAppSelector } from '@/redux/hooks';
 import Image from 'next/image';
 import noCover from '../../public/assets/images/book-no-cover.png';
 import { usePathname } from 'next/navigation';
+import { ErrorHandling } from '@/components';
 
 const BookPage: React.FC = () => {
   const { volumeId } = useAppSelector((state) => state.booksSlice);
@@ -12,30 +13,15 @@ const BookPage: React.FC = () => {
   const { data, error, isLoading, isFetching } = useGetBookQuery({
     volumeId: volumeId || pathname,
   });
+  const errorComponent = ErrorHandling({ error });
 
   const descriptionHtml = { __html: data?.volumeInfo.description } as {
     __html: string;
   };
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading || isFetching) return <div>Loading...</div>;
 
-  if (error) {
-    if ('status' in error) {
-      const errMsg =
-        'error' in error ? error.error : JSON.stringify(error.data);
-
-      return (
-        <div className="text-center my-16 text-lg font-bold">
-          <div>An error has occurred 💥💥💥</div>
-          <div>{errMsg}</div>
-        </div>
-      );
-    } else {
-      return <div>{error.message}</div>;
-    }
-  }
+  if (errorComponent) return errorComponent;
 
   return (
     <div className="flex min-h-[calc(100vh-272px)] sm:flex-col">

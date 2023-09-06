@@ -5,6 +5,7 @@ import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
 import { setBooksToRender } from '@/redux/features/booksSlice';
 import BookItem from './BookItem';
 import LoadMoreButton from './LoadMoreButton';
+import { ErrorHandling } from '../ErrorHandling';
 
 function BookList() {
   const dispatch = useAppDispatch();
@@ -45,25 +46,11 @@ function BookList() {
     }
   }, [searchTerm, refetch]);
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading || isFetching) return <div>Loading...</div>;
 
-  if (error) {
-    if ('status' in error) {
-      const errMsg =
-        'error' in error ? error.error : JSON.stringify(error.data);
+  const errorComponent = ErrorHandling({ error });
 
-      return (
-        <div className="text-center my-16 text-lg font-bold">
-          <div>An error has occurred 💥💥💥</div>
-          <div>{errMsg}</div>
-        </div>
-      );
-    } else {
-      return <div>{error.message}</div>;
-    }
-  }
+  if (errorComponent) return errorComponent;
 
   return (
     <div className="w-full p-8 sm:p-4 max-w-[1200px]">
