@@ -10,24 +10,37 @@ type BookItemProps = {
 const BookItem: React.FC<BookItemProps> = ({ book }) => {
   return (
     <div className="flex flex-col h-full p-4 bg-gray-100 shadow-md rounded-lg cursor-pointer">
-      <Image
-        src={book.volumeInfo.imageLinks?.smallThumbnail || noCover.src}
-        alt={book.volumeInfo.title}
-        width={180}
-        height={240}
-        quality={100}
-        className="self-center max-w-[180px] max-h-[240px] h-full w-full mb-4 shadow-2xl rounded-lg"
-      />
+      <div className="relative overflow-hidden self-center w-[180px] h-[200px]  mb-4 rounded-lg ">
+        <Image
+          src={book.volumeInfo.imageLinks?.thumbnail || noCover.src}
+          alt={book.volumeInfo.title}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-contain drop-shadow-custom py-4"
+        />
+      </div>
       <div className="flex flex-col flex-grow items-start">
-        <div className="text-sm text-gray-400 underline underline-offset-4">
-          {book.volumeInfo.categories || ""}
+        <div className="mb-2">
+          <span className="text-sm text-gray-400 underline underline-offset-4">
+            {book.volumeInfo.categories || ""}
+          </span>
         </div>
-        <h3 className="text-xl font-bold mb-2">
+        <h3 className="text-md font-bold mb-2">
           {book.volumeInfo.title || ""}
         </h3>
         <div className="flex-grow" />
-        <div className="text-sm text-gray-500">
-          {book.volumeInfo.authors || ""}
+        <div>
+          <span className="text-xs">
+            Published: {book.volumeInfo.publishedDate || ""}
+          </span>
+        </div>
+        <div>
+          <span className="text-sm text-gray-500">
+            {book.volumeInfo.authors
+              ? book.volumeInfo.authors.map(a => a + " ")
+              : ""}
+          </span>
         </div>
       </div>
     </div>

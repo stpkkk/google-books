@@ -1,4 +1,5 @@
 import BookList from "./BookList";
 import BookItem from "./BookItem";
+import LoadMoreButton from "./LoadMoreButton";
 
-export { BookList, BookItem };
+export { BookList, BookItem, LoadMoreButton };

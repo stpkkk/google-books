@@ -1,34 +1,42 @@
 "use client";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useGetBooksQuery } from "@/redux/services/googleBooksApi";
-import {
-  fetchBooksFailure,
-  fetchBooksStart,
-  fetchBooksSuccess,
-  setBooksToRender,
-} from "@/redux/features/booksSlice";
+import { setBooksToRender } from "@/redux/features/booksSlice";
 import BookItem from "./BookItem";
-import { useAppSelector } from "@/redux/hooks";
-import { IBook } from "@/interfaces";
+import LoadMoreButton from "./LoadMoreButton";
 
 function BookList() {
-  const dispatch = useDispatch();
-  const { searchTerm, booksToRender } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { searchTerm, booksToRender, selectedOptions } = useAppSelector(
     state => state.booksSlice
   );
+
   const params = {
-    searchTerm,
+    searchTerm: searchTerm,
+    subject: selectedOptions.categories,
     limit: booksToRender,
     startIndex: 0,
-    // orderBy:
+    orderBy: selectedOptions.sorting,
   };
 
-  const { data, error, isError, isLoading, isFetching, refetch } =
-    useGetBooksQuery(params, {
-      skip: !searchTerm,
-    });
+  // const params = {
+  //   searchTerm: searchTerm,
+  //   subject:
+  //     selectedOptions.categories === "all"
+  //       ? ""
+  //       : `${"+" + selectedOptions.categories + "&"}`,
+  //   orderBy: `${"orderBy=" + selectedOptions.sorting}`,
+  //   limit: booksToRender,
+  //   startIndex: 0,
+  // };
+
+  // console.log(params)
+
+  const { data, error, isLoading, isFetching, refetch } =
+    useGetBooksQuery(params);
+
+  const isBookNotFounded = data && data.totalItems <= 0;
 
   useEffect(() => {
     if (searchTerm) {
@@ -37,58 +45,49 @@ function BookList() {
     }
   }, [searchTerm, refetch]);
 
-  const handleLoadMore = () => {
-    const newBooksToRender = booksToRender + 2;
-    dispatch(setBooksToRender(newBooksToRender));
-  };
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(fetchBooksStart());
-    } else if (error) {
-      dispatch(fetchBooksFailure(error));
-    } else if (data) {
-      dispatch(fetchBooksSuccess(data.items));
-    }
-  }, [data, error, isLoading, dispatch]);
-
   if (isLoading || isFetching) {
-    return <div className="text-black">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return (
-      <div className="my-16 text-black text-lg font-bold">
-        Something went wrong 💥💥💥. Try again!
-      </div>
-    );
+  if (error) {
+    if ("status" in error) {
+      const errMsg =
+        "error" in error ? error.error : JSON.stringify(error.data);
+
+      return (
+        <div className="text-center my-16 text-lg font-bold">
+          <div>An error has occurred 💥💥💥</div>
+          <div>{errMsg}</div>
+        </div>
+      );
+    } else {
+      return <div>{error.message}</div>;
+    }
   }
 
   return (
-    <div className="w-full p-8 sm:p-4 bg-white text-black max-w-[1200px]">
-      {data && searchTerm ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {data?.items.map((book: IBook) => (
-            <li key={book.id}>
+    <div className="w-full p-8 sm:p-4 max-w-[1200px]">
+      <div className="flex_center my-4">
+        <span className="font-bold">
+          {isBookNotFounded
+            ? "Can't find this book. Check your prompt!"
+            : `Found ${data?.totalItems} results`}
+        </span>
+      </div>
+      {data && data.items && (
+        <ul className="grid grid-cols-4 sm:grid-cols-1 gap-4">
+          {data.items.map(book => (
+            <li key={crypto.randomUUID()}>
               <BookItem book={book} />
             </li>
           ))}
         </ul>
-      ) : null}
-
-      {searchTerm && (
-        <div className="flex_center p-8">
-          <button
-            className="max-w-xs w-full mt-auto p-4 text-white bg-black hover:opacity-50"
-            onClick={handleLoadMore}
-          >
-            Load more
-          </button>
-        </div>
       )}
+      {!isBookNotFounded && <LoadMoreButton />}
     </div>
   );
 }
 
 export default BookList;
+
 

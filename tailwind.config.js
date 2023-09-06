@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        custom: "10px 12px 4px rgba(0, 0, 0, 0.2)",
+      },
       screens: {
         sm: { max: "768px" },
         md: { max: "1200px" },
