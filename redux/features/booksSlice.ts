@@ -5,7 +5,7 @@ export interface booksState {
   selectedOptions: Record<string, string>;
   isOpen: Record<string, boolean>;
   searchTerm: string;
-  booksToRender: number;
+  maxResults: number;
   volumeId: string;
 }
 
@@ -16,7 +16,7 @@ const initialState: booksState = {
   },
   isOpen: {},
   searchTerm: '',
-  booksToRender: 30,
+  maxResults: 30,
   volumeId: '',
 };
 
@@ -41,8 +41,8 @@ const booksSlice = createSlice({
       state.searchTerm = action.payload;
     },
 
-    setBooksToRender: (state, action: PayloadAction<number>) => {
-      state.booksToRender = action.payload;
+    setMaxResults: (state, action: PayloadAction<number>) => {
+      state.maxResults = action.payload;
     },
 
     setVolumeId: (state, action: PayloadAction<string>) => {
@@ -55,7 +55,7 @@ export const {
   setSelectedOption,
   toggleDropdown,
   setSearchTerm,
-  setBooksToRender,
+  setMaxResults,
   setVolumeId,
 } = booksSlice.actions;
 

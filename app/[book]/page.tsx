@@ -5,7 +5,7 @@ import { useAppSelector } from '@/redux/hooks';
 import Image from 'next/image';
 import noCover from '../../public/assets/images/book-no-cover.png';
 import { usePathname } from 'next/navigation';
-import { ErrorHandling } from '@/components';
+import { ErrorHandling, SkeletonBook } from '@/components';
 
 const BookPage: React.FC = () => {
   const { volumeId } = useAppSelector((state) => state.booksSlice);
@@ -13,17 +13,16 @@ const BookPage: React.FC = () => {
   const { data, error, isLoading, isFetching } = useGetBookQuery({
     volumeId: volumeId || pathname,
   });
-  const errorComponent = ErrorHandling({ error });
 
   const descriptionHtml = { __html: data?.volumeInfo.description } as {
     __html: string;
   };
 
-  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (error) return <ErrorHandling error={error} />;
 
-  if (errorComponent) return errorComponent;
-
-  return (
+  return isLoading || isFetching ? (
+    <SkeletonBook />
+  ) : (
     <div className="flex min-h-[calc(100vh-272px)] sm:flex-col">
       <div className="flex_center flex-1 bg-gray-100">
         <div className="relative overflow-hidden self-center w-[350px] h-[500px] rounded-lg ">

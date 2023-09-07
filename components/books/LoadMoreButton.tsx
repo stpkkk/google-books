@@ -1,13 +1,13 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setBooksToRender } from '@/redux/features/booksSlice';
+import { setMaxResults } from '@/redux/features/booksSlice';
 
 const LoadMoreButton: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { booksToRender } = useAppSelector((state) => state.booksSlice);
+  const { maxResults } = useAppSelector((state) => state.booksSlice);
 
   const handleLoadMore = () => {
-    dispatch(setBooksToRender(booksToRender + 2));
+    dispatch(setMaxResults(maxResults + 2));
   };
 
   return (

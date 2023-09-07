@@ -3,10 +3,10 @@ import { IBook } from '@/interfaces';
 
 type GetAllBooksParams = {
   searchTerm: string;
-  startIndex: number;
-  limit: number;
-  orderBy: string;
   subject: string;
+  startIndex: number;
+  maxResults: number;
+  orderBy: string;
 };
 
 type GetBookParams = {
@@ -26,8 +26,8 @@ export const googleBooksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     getAllBooks: builder.query<IBooksResponse, GetAllBooksParams>({
-      query: ({ searchTerm, startIndex = 0, limit, orderBy, subject }) =>
-        `?q=${searchTerm}+${subject}&orderBy=${orderBy}&maxResults=${limit}&startIndex=${startIndex}&key=${apiKey}`,
+      query: ({ searchTerm, subject, startIndex = 0, maxResults, orderBy }) =>
+        `?q=${searchTerm}+${subject}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}&key=${apiKey}`,
     }),
 
     getBook: builder.query<IBook, GetBookParams>({
@@ -38,4 +38,4 @@ export const googleBooksApi = createApi({
 
 export const { useGetAllBooksQuery, useGetBookQuery } = googleBooksApi;
 
-// `?q=${searchTerm}${subject}${orderBy}&maxResults=${limit}&startIndex=${startIndex}&key=${apiKey}`,
+// `?q=${searchTerm}${subject}${orderBy}&maxResults=${maxResults}&startIndex=${startIndex}&key=${apiKey}`,

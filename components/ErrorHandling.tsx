@@ -6,7 +6,7 @@ type ErroHandlingProps = {
   error?: FetchBaseQueryError | SerializedError;
 };
 
-export const ErrorHandling: React.FC = ({ error }: ErroHandlingProps) => {
+export const ErrorHandling: React.FC<ErroHandlingProps> = ({ error }) => {
   if (error) {
     if ('status' in error) {
       const errMsg =
