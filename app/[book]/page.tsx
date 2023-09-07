@@ -13,10 +13,9 @@ const BookPage: React.FC = () => {
   const { data, error, isLoading, isFetching } = useGetBookQuery({
     volumeId: volumeId || pathname,
   });
-
-  const descriptionHtml = { __html: data?.volumeInfo.description } as {
-    __html: string;
-  };
+  const { imageLinks, title, categories, authors, description } =
+    data?.volumeInfo || {};
+  const descriptionHtml = { __html: description || '' };
 
   if (error) return <ErrorHandling error={error} />;
 
@@ -25,10 +24,10 @@ const BookPage: React.FC = () => {
   ) : (
     <div className="flex min-h-[calc(100vh-272px)] sm:flex-col">
       <div className="flex_center flex-1 bg-gray-100">
-        <div className="relative overflow-hidden self-center w-[350px] h-[500px] rounded-lg ">
+        <div className="relative overflow-hidden self-center w-[350px] h-[500px] rounded-lg">
           <Image
-            src={data?.volumeInfo.imageLinks?.thumbnail || noCover.src}
-            alt={data?.volumeInfo.title || ''}
+            src={imageLinks?.thumbnail || noCover.src}
+            alt={title || ''}
             fill
             quality={100}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -38,15 +37,15 @@ const BookPage: React.FC = () => {
       </div>
       <div className="flex flex-1 flex-col gap-4 bg-white p-8 sm:px-4">
         <div>
-          <span>{data?.volumeInfo.categories?.at(0)}</span>
+          <span>{categories?.[0]}</span>
         </div>
-        <h1 className="text-2xl font-bold mb-4">{data?.volumeInfo.title}</h1>
+        <h1 className="text-2xl font-bold mb-4">{title}</h1>
         <div>
           <span className="text-sm text-gray-500 underline underline-offset-4">
-            {data?.volumeInfo.authors || ''}
+            {authors || ''}
           </span>
         </div>
-        {data?.volumeInfo.description && (
+        {description && (
           <div className="text-gray-700 border p-4">
             <div dangerouslySetInnerHTML={descriptionHtml} />
           </div>
@@ -57,3 +56,4 @@ const BookPage: React.FC = () => {
 };
 
 export default BookPage;
+
