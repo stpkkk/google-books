@@ -1,13 +1,13 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setMaxResults } from '@/redux/features/booksSlice';
+import { setStartIndex } from '@/redux/features/booksSlice';
 
 const LoadMoreButton: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { maxResults } = useAppSelector((state) => state.booksSlice);
+  const { startIndex } = useAppSelector((state) => state.booksSlice);
 
   const handleLoadMore = () => {
-    dispatch(setMaxResults(maxResults + 2));
+    dispatch(setStartIndex(startIndex + 30));
   };
 
   return (

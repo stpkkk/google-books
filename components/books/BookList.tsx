@@ -2,25 +2,24 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
-import { setMaxResults } from '@/redux/features/booksSlice';
 import BookItem from './BookItem';
 import LoadMoreButton from './LoadMoreButton';
 import { ErrorHandling } from '../ErrorHandling';
 import { SkeletonBookList } from '../Skeletons';
+import { setBooks } from '@/redux/features/booksSlice';
 
 function BookList() {
   const dispatch = useAppDispatch();
-  const { searchTerm, maxResults, selectedOptions } = useAppSelector(
+  const { searchTerm, selectedOptions } = useAppSelector(
     (state) => state.booksSlice,
   );
-
-  let startIndex = 0;
+  const { startIndex, books } = useAppSelector((state) => state.booksSlice);
 
   const params = {
     searchTerm,
     subject: selectedOptions.categories,
-    maxResults,
-    startIndex: startIndex + maxResults,
+    maxResults: 30,
+    startIndex,
     orderBy: selectedOptions.sorting,
   };
 
@@ -29,10 +28,11 @@ function BookList() {
   const isBookNotFounded = data && data.totalItems <= 0;
 
   useEffect(() => {
-    if (searchTerm) {
-      dispatch(setMaxResults(30));
+    if (data && data.items) {
+      const updatedBooks = [...books, ...data.items];
+      dispatch(setBooks(updatedBooks));
     }
-  }, [searchTerm]);
+  }, [data]);
 
   if (error) return <ErrorHandling error={error} />;
 
@@ -48,8 +48,8 @@ function BookList() {
         </span>
       </div>
       <ul className="grid grid-cols-4 sm:grid-cols-1 gap-4">
-        {data?.items?.map((book) => (
-          <li key={book.id}>
+        {books.map((book) => (
+          <li key={crypto.randomUUID()}>
             <BookItem book={book} />
           </li>
         ))}

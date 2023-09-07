@@ -38,4 +38,3 @@ export const googleBooksApi = createApi({
 
 export const { useGetAllBooksQuery, useGetBookQuery } = googleBooksApi;
 
-// `?q=${searchTerm}${subject}${orderBy}&maxResults=${maxResults}&startIndex=${startIndex}&key=${apiKey}`,
