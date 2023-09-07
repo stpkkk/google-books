@@ -34,8 +34,9 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
       </label>
       <div className="relative text-black bg-white max-w-xs w-full">
         <button
-          onClick={toggleDropdownHandler}
           className="outline-none h-10 w-full border-gray-300 rounded-md pl-3 pr-10 py-2 text-left"
+          onClick={toggleDropdownHandler}
+          type="button"
         >
           {selectedOption || items.at(0)}
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -61,9 +62,9 @@ const Dropdown: React.FC<DropdownProps> = ({ items, label, dropdownId }) => {
           <ul className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md ">
             {items.map((item) => (
               <li
-                key={item}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md"
                 onClick={() => selectOptionHandler(item)}
+                key={item}
               >
                 {item}
               </li>

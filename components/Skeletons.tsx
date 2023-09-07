@@ -1,6 +1,7 @@
+import React from 'react';
 import { useAppSelector } from '@/redux/hooks';
 
-export function SkeletonBookList() {
+export const SkeletonBookList: React.FC = () => {
   const { startIndex } = useAppSelector((state) => state.booksSlice);
   return (
     <div className="w-full p-8 sm:p-4 max-w-[1200px] animate-pulse">
@@ -18,9 +19,9 @@ export function SkeletonBookList() {
       <div className="mx-auto p-8 bg-gray-200 max-w-[320px] h-[56px] rounded-lg" />
     </div>
   );
-}
+};
 
-export function SkeletonBook() {
+export const SkeletonBook: React.FC = () => {
   return (
     <div className="flex min-h-[calc(100vh-272px)] sm:flex-col animate-pulse">
       <div className="flex_center flex-1 bg-gray-100">
@@ -34,4 +35,4 @@ export function SkeletonBook() {
       </div>
     </div>
   );
-}
+};

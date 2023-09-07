@@ -15,6 +15,7 @@ const LoadMoreButton: React.FC = () => {
       <button
         className="max-w-xs w-full mt-auto p-4 text-white bg-black hover:opacity-50"
         onClick={handleLoadMore}
+        type="button"
       >
         Load more
       </button>

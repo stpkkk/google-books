@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Categories, SortingBy } from '@/constants';
-import { IBook } from '@/interfaces';
+import { Book } from '@/types';
+import { Categories, SortingBy } from '@/enums';
 
 export interface booksState {
   selectedOptions: Record<string, string>;
@@ -8,7 +8,7 @@ export interface booksState {
   searchTerm: string;
   startIndex: number;
   volumeId: string;
-  books: IBook[];
+  books: Book[];
 }
 
 const initialState: booksState = {
@@ -54,7 +54,7 @@ const booksSlice = createSlice({
       state.volumeId = action.payload;
     },
 
-    setBooks: (state, action: PayloadAction<IBook[]>) => {
+    setBooks: (state, action: PayloadAction<Book[]>) => {
       state.books = action.payload;
     },
   },

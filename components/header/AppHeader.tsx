@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchInput from './SearchInput';
 import Dropdown from './Dropdown';
-import { Categories, SortingBy } from '@/constants';
+import { Categories, SortingBy } from '@/enums';
 
 const AppHeader: React.FC = () => {
   const categoriesArray = Object.values(Categories);

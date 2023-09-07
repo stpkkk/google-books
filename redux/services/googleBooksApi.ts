@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IBook } from '@/interfaces';
+import { Book } from '@/types';
 
 type GetAllBooksParams = {
   searchTerm: string;
@@ -13,8 +13,8 @@ type GetBookParams = {
   volumeId?: string;
 };
 
-interface IBooksResponse {
-  items: IBook[];
+interface BooksResponse {
+  items: Book[];
   totalItems: number;
 }
 
@@ -25,12 +25,12 @@ export const googleBooksApi = createApi({
   reducerPath: 'googleBooksApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
-    getAllBooks: builder.query<IBooksResponse, GetAllBooksParams>({
+    getAllBooks: builder.query<BooksResponse, GetAllBooksParams>({
       query: ({ searchTerm, subject, startIndex = 0, maxResults, orderBy }) =>
         `?q=${searchTerm}+${subject}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}&key=${apiKey}`,
     }),
 
-    getBook: builder.query<IBook, GetBookParams>({
+    getBook: builder.query<Book, GetBookParams>({
       query: ({ volumeId }) => `${volumeId}?&key=${apiKey}`,
     }),
   }),

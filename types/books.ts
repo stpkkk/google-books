@@ -1,4 +1,4 @@
-export interface IBook {
+export type Book = {
   id: string;
   volumeInfo: {
     categories?: string[];
@@ -11,4 +11,4 @@ export interface IBook {
       thumbnail: string;
     };
   };
-}
+};

@@ -10,7 +10,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ru">
-      <body className="no-scrollbar">
+      <body>
         <Providers>
           <AppHeader />
           {children}
