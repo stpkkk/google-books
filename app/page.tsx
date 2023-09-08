@@ -23,19 +23,17 @@ export default function HomePage() {
   const { data, error, isLoading, isFetching, refetch } =
     useGetAllBooksQuery(params);
 
-  console.log(params);
-
   useEffect(() => {
     if (data && data.items) {
       const updatedBooks = [...books, ...data.items];
       dispatch(setBooks(updatedBooks));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     dispatch(setBooks([]));
     refetch();
-  }, [refetch, selectedOptions.sorting, selectedOptions.categories]);
+  }, [refetch, selectedOptions.sorting, selectedOptions.categories, dispatch]);
 
   if (error) return <ErrorHandling error={error} />;
 

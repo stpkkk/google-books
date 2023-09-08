@@ -56,4 +56,3 @@ const BookPage: React.FC = () => {
 };
 
 export default BookPage;
-

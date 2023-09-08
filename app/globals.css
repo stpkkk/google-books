@@ -2,37 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-  font-family: "Montserrat";
-  src: url("../public/fonts/Montserrat-Regular.ttf");
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-Regular.ttf');
   font-weight: 400;
 }
 @font-face {
-  font-family: "Montserrat";
-  src: url("../public/fonts/Montserrat-SemiBold.ttf");
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-SemiBold.ttf');
   font-weight: 600;
 }
 @font-face {
-  font-family: "Montserrat";
-  src: url("../public/fonts/Montserrat-Bold.ttf");
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-Bold.ttf');
   font-weight: 700;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-	-ms-overflow-style: none;  /* IE and Edge */
-	scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 body {
