@@ -11,7 +11,7 @@ export default function HomePage() {
     (state) => state.booksSlice,
   );
   const params = {
-    searchTerm,
+    searchTerm: searchTerm || 'книга',
     subject:
       selectedOptions.categories === 'all'
         ? ''
@@ -33,7 +33,13 @@ export default function HomePage() {
   useEffect(() => {
     dispatch(setBooks([]));
     refetch();
-  }, [refetch, selectedOptions.sorting, selectedOptions.categories, dispatch]);
+  }, [
+    refetch,
+    selectedOptions.sorting,
+    selectedOptions.categories,
+    searchTerm,
+    dispatch,
+  ]);
 
   if (error) return <ErrorHandling error={error} />;
 

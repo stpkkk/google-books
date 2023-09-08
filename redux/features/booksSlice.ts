@@ -42,7 +42,6 @@ const booksSlice = createSlice({
 
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
-      state.books = [];
     },
 
     setStartIndex: (state, action: PayloadAction<number>) => {
