@@ -17,7 +17,7 @@ const BookList: React.FC<BookListProps> = ({ totalItems }) => {
       <div className="flex_center my-4">
         <span className="font-bold">
           {isBookNotFounded
-            ? "Can't find this book"
+            ? 'Can not find this book'
             : `Found ${totalItems} results`}
         </span>
       </div>
