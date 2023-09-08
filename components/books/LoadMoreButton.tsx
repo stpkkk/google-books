@@ -7,7 +7,7 @@ const LoadMoreButton: React.FC = () => {
   const { startIndex } = useAppSelector((state) => state.booksSlice);
 
   const handleLoadMore = () => {
-    dispatch(setStartIndex(startIndex + 30));
+	  dispatch(setStartIndex(startIndex + 30));
   };
 
   return (

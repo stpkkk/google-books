@@ -3,11 +3,12 @@ import { useAppSelector } from '@/redux/hooks';
 
 export const SkeletonBookList: React.FC = () => {
   const { startIndex } = useAppSelector((state) => state.booksSlice);
+
   return (
     <div className="w-full p-8 sm:p-4 max-w-[1200px] animate-pulse">
       <div className="my-4 bg-gray-200 max-w-[153px] h-6 mx-auto rounded-lg" />
       <ul className="grid grid-cols-4 sm:grid-cols-1 gap-4 mb-8">
-        {Array.from({ length: startIndex }).map((_, index) => (
+        {Array.from({ length: startIndex + 30 }).map((_, index) => (
           <li key={index}>
             <div className="aspect-square h-[300] w-full overflow-hidden rounded-lg bg-gray-200" />
             <p className="mt-2 h-4 w-1/2 rounded-lg bg-gray-200" />

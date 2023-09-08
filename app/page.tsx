@@ -12,12 +12,18 @@ export default function HomePage() {
   );
   const params = {
     searchTerm,
-    subject: selectedOptions.categories,
+    subject:
+      selectedOptions.categories === 'all'
+        ? ''
+        : `+subject:${selectedOptions.categories}`,
     maxResults: 30,
     startIndex,
     orderBy: selectedOptions.sorting,
   };
-  const { data, error, isLoading, isFetching } = useGetAllBooksQuery(params);
+  const { data, error, isLoading, isFetching, refetch } =
+    useGetAllBooksQuery(params);
+
+  console.log(params);
 
   useEffect(() => {
     if (data && data.items) {
@@ -25,6 +31,11 @@ export default function HomePage() {
       dispatch(setBooks(updatedBooks));
     }
   }, [data]);
+
+  useEffect(() => {
+    dispatch(setBooks([]));
+    refetch();
+  }, [refetch, selectedOptions.sorting, selectedOptions.categories]);
 
   if (error) return <ErrorHandling error={error} />;
 

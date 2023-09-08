@@ -17,8 +17,8 @@ const initialState: booksState = {
     sorting: SortingBy.RELEVANCE,
   },
   isOpen: {},
-  searchTerm: '',
-  startIndex: 30,
+  searchTerm: 'книга',
+  startIndex: 0,
   volumeId: '',
   books: [],
 };
@@ -33,7 +33,6 @@ const booksSlice = createSlice({
     ) => {
       const { dropdownId, option } = action.payload;
       state.selectedOptions[dropdownId] = option;
-      state.books = [];
     },
 
     toggleDropdown: (state, action: PayloadAction<string>) => {

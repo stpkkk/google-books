@@ -18,7 +18,7 @@ interface BooksResponse {
   totalItems: number;
 }
 
-const API_URL = 'https://www.googleapis.com/books/v1/volumes/';
+const API_URL = 'https://www.googleapis.com/books/v1/volumes';
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export const googleBooksApi = createApi({
@@ -26,8 +26,10 @@ export const googleBooksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     getAllBooks: builder.query<BooksResponse, GetAllBooksParams>({
-      query: ({ searchTerm, subject, startIndex = 0, maxResults, orderBy }) =>
-        `?q=${searchTerm}+${subject}&startIndex=${startIndex}&maxResults=${maxResults}&orderBy=${orderBy}&key=${apiKey}`,
+      query: ({ searchTerm, subject, startIndex, maxResults, orderBy }) =>
+        `?q=${encodeURIComponent(searchTerm)}${encodeURIComponent(
+          subject,
+        )}&maxResults=${maxResults}&startIndex=${startIndex}&orderBy=${orderBy}&key=${apiKey}`,
     }),
 
     getBook: builder.query<Book, GetBookParams>({
