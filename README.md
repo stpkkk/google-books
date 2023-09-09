@@ -1,7 +1,5 @@
 # <a href="https://google-books-peach.vercel.app/">Google Books</a>
 
-Тестовое задание на позицию Frontend-разработчика в компании Future с использованием Google Books API.
-
 ## App stack
 
 - Next.js
