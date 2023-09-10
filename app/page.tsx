@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
 import { setBooks } from '@/redux/features/booksSlice';
 import { BookList, ErrorHandling, SkeletonBookList } from '@/components';
+import BackToTopButton from '@/components/BackToTopButton';
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -48,7 +49,10 @@ export default function HomePage() {
       {isLoading || isFetching ? (
         <SkeletonBookList />
       ) : (
-        <BookList totalItems={data?.totalItems} />
+        <>
+          <BookList totalItems={data?.totalItems} />
+          <BackToTopButton />
+        </>
       )}
     </div>
   );
