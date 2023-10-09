@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Book } from '@/types';
 import { Categories, SortingBy } from '@/enums';
+import { Book } from '@/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface booksState {
   selectedOptions: Record<string, string>;

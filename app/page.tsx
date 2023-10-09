@@ -1,10 +1,11 @@
 'use client';
+
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
-import { setBooks } from '@/redux/features/booksSlice';
 import { BookList, ErrorHandling, SkeletonBookList } from '@/components';
 import BackToTopButton from '@/components/BackToTopButton';
+import { setBooks } from '@/redux/features/booksSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useGetAllBooksQuery } from '@/redux/services/googleBooksApi';
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ export default function HomePage() {
   if (error) return <ErrorHandling error={error} />;
 
   return (
-    <div className="flex_center w-full min-h-[calc(100vh-272px)] flex-col ">
+    <div className='flex_center w-full min-h-[calc(100vh-272px)] flex-col '>
       {isLoading || isFetching ? (
         <SkeletonBookList />
       ) : (

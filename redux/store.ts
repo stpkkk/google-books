@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { googleBooksApi } from './services/googleBooksApi';
 import booksSlice from './features/booksSlice';
+import { googleBooksApi } from './services/googleBooksApi';
+import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 export const store = configureStore({

@@ -1,6 +1,6 @@
 import './globals.css';
-import { AppHeader } from '@/components';
 import { Providers } from './providers';
+import { AppHeader } from '@/components';
 
 export const metadata = {
   title: 'Google Books',
@@ -9,7 +9,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="ru">
+    <html lang='ru'>
       <body>
         <Providers>
           <AppHeader />

@@ -13,7 +13,7 @@ export const ErrorHandling: React.FC<ErroHandlingProps> = ({ error }) => {
         'error' in error ? error.error : JSON.stringify(error.data);
 
       return (
-        <div className="text-center my-16 text-lg font-bold">
+        <div className='text-center my-16 text-lg font-bold'>
           <div>An error has occurred 💥💥💥</div>
           <div>{JSON.parse(errMsg).error.message}</div>
           <div>Code: {JSON.parse(errMsg).error.code}</div>

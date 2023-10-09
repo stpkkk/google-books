@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Book } from '@/types';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 type GetAllBooksParams = {
   searchTerm: string;
